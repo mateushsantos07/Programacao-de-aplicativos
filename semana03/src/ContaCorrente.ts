@@ -25,6 +25,9 @@ export default class ContaCorrente extends ContaBancaria {
             var aux = valor - this.getSaldo();
             this.limite = this.limite - aux;
             this.setSaldo(0);
+            console.log(`Saque de ${valor}, Realizado con sucesso`)
+            console.log(`Seu saldo é ${this.getSaldo()}!!`)
+            console.log(`Seu limite é ${this.limite}`)
             return;
         }
         var saldo = this.getSaldo();

@@ -1,14 +1,28 @@
-import leia from 'readline-sync'
-import ContaBancaria from "./ContaBancaria";
-import Titular from "./Titular";
-import ContaCorrente from './ContaCorrente';
+import leia from "readline-sync"
+import Banco from "./Banco";
 
-var nome = leia.question("DIGITE SEU NOME: ")
-var cpf = leia.question("DIGITE SEU CPF: ")
-var chavePix = leia.question("DIGITE CHAVE PIX: ")
+var nubank = new Banco();
 
-var t1 = new Titular(nome, cpf);
-var c1 = new ContaBancaria(t1, chavePix);
 
-var cc = new ContaCorrente(t1, chavePix);
+console.log("                                                ")
 
+var opcao = 0;
+do {
+    console.log(`--------------------MENU--------------------`)
+opcao = leia.keyInSelect(["CRIAR CONTA", "TRANSFERENCIA", "DELETAR CONTA", "VER CONTAS"]) + 1
+switch(opcao){ 
+    case 1:
+        nubank.addAccount();
+        break;
+    case 2: 
+        nubank.transferir();
+        console.log(`OPCAO INDISPONIVEL!!`)
+        break;
+    case 3: 
+        nubank.removerConta();
+        break;
+    case 4:
+        nubank.mostrarContas();
+        break;
+}
+} while (opcao !== 0);
