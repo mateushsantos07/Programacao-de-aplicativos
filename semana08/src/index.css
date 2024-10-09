@@ -80,7 +80,7 @@ body {
 
 .check, .edit, .delete {
   border: none;
-  background: #dceffa;
+  background: none;
   cursor: pointer;
   margin-left: 10px;
 }

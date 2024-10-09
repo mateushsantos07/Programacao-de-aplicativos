@@ -1,33 +1,7 @@
-/**
- * This file will automatically be loaded by vite and run in the "renderer" context.
- * To learn more about the differences between the "main" and the "renderer" context in
- * Electron, visit:
- *
- * https://electronjs.org/docs/tutorial/application-architecture#main-and-renderer-processes
- *
- * By default, Node.js integration in this file is disabled. When enabling Node.js integration
- * in a renderer process, please be aware of potential security implications. You can read
- * more about security risks here:
- *
- * https://electronjs.org/docs/tutorial/security
- *
- * To enable Node.js integration in this file, open up `main.ts` and enable the `nodeIntegration`
- * flag:
- *
- * ```
- *  // Create the browser window.
- *  mainWindow = new BrowserWindow({
- *    width: 800,
- *    height: 600,
- *    webPreferences: {
- *      nodeIntegration: true
- *    }
- *  });
- * ```
- */
 
 import Tarefa from './Tarefa';
 import './index.css';
+import Swal from 'sweetalert2';
 
 var tarefas: Tarefa[] = [];
 
@@ -35,6 +9,9 @@ declare global {
     interface Window {
         addPeloEnter: (event: KeyboardEvent) => void;
         addTarefa: () => void;
+        trocaConcluir: (id: number) => void;
+        trocaEditar: (id: number) => void;
+        trocaDelete: (id: number) => void;
     }
 }
 
@@ -107,5 +84,46 @@ function render() {
 
     }
 
+    function trocaConcluir (id: number) {
+        const index = tarefas.findIndex(tarefa => tarefa.getId() === id)
+        const valorAtual = tarefas[index].getCompleted();
+        tarefas[index].setCompleted(!valorAtual);
+        localStorage.setItem('tarefas', JSON.stringify(tarefas))
+        render();
+    }
+
+    async function editarTarefa (id: number ){
+        const index = tarefas.findIndex(tarefa => tarefa.getId() === id)
+        //const novoTexto = prompt("EDITAR TEXTO DA TAREFA", tarefas[index].getText())
+        
+        const { value } = await Swal.fire({
+            title: "Editar tarefa",
+            input: "text",
+            inputLabel: "Edite o texto da tarefa",
+            inputValue: tarefas[index].getText(),
+            showCancelButton: true,
+        });
+
+
+        if(value !== undefined && value.trim() !== ''){
+            tarefas[index].setText(value.trim());
+            localStorage.setItem('tarefas', JSON.stringify(tarefas))
+            render();
+        }
+
+        console.log(value)
+        //tarefas[index].setText(novoTexto)
+    }
+
+    function trocaDelete (id: number ){
+        const tarefasFiltradas = tarefas.filter(tarefa => tarefa.getId() !== id);
+        tarefas = tarefasFiltradas;
+        localStorage.setItem("Tarefas", JSON.stringify(tarefas))
+        render();
+    }
+
     window.addPeloEnter = addPeloEnter;
     window.addTarefa = addTarefa;
+    window.trocaConcluir = trocaConcluir;
+    window.trocaEditar = editarTarefa;
+    window.trocaDelete = trocaDelete;
