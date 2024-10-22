@@ -1,0 +1,80 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #b3b3b3;
+}
+
+header {
+  background-color: #ffffff;
+  margin: 30px auto 10px;
+  width: 80vw;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+header h2 {
+  font-size: 20px;
+  font-weight: 700;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  text-align: center;
+}
+
+main {
+  /* background-color: red; */
+  height: 500px;
+  width: 80vw;
+  margin: 20px auto 0;
+  display: flex;
+  flex-direction: row;
+  column-gap: 20px;
+}
+
+form {
+  background-color: rgb(255, 255, 255);
+  width: 500px;
+  height: fit-content;
+  border-radius: 15px;
+  padding: 16px;
+  box-shadow: 11px 11px 5px -7px rgba(66,66,66,1);}
+
+aside {
+  background-color: #d1dd2d;
+  width:80vw;
+}
+
+form h2 {
+  font-size: 25px;
+  font-weight: bold;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  text-align: center;
+}
+
+form .input-data {
+  display: flex;
+  flex-direction: column;
+}
+
+form .input-data:not(:last-of-type) {
+  margin-bottom: 20px;
+}
+
+form .input-data label {
+  color: #474747;
+  font-size: 14px;
+  font-weight: bold;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+form .input-data input {
+  height: 48px;
+  font-size: 14px;
+  color: #666666;
+  border-radius: 10px;
+  background-color: #f0f0f0;
+  border: 2px solid #999999;
+  padding: 0 10px 0;
+}
