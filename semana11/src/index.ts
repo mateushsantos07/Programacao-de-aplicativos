@@ -6,15 +6,17 @@ import VeiculoRepository from './repository/VeiculoRepository';
 // whether you're running in development or production).
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
+declare const DETALHES_WEBPACK_ENTRY: string;
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
   app.quit();
 }
 
+let mainWindow: BrowserWindow;
 const createWindow = (): void => {
   // Create the browser window.
-  const mainWindow = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     height: 600,
     width: 800,
     webPreferences: {
@@ -70,4 +72,12 @@ ipcMain.handle('findById', async (_: any, id: string) => {
 
 ipcMain.handle('deletarVeiculo', async (_: any, id: string) => {
   await new VeiculoRepository().delete(id);
+})
+
+ipcMain.on("change-screen", (_: any, id: string) => {
+  mainWindow.loadURL(DETALHES_WEBPACK_ENTRY + `?id=${id}`)
+})
+
+ipcMain.on("change-screen-home", () => {
+  mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY)
 })
